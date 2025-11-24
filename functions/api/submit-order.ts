@@ -75,7 +75,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         // IMPORTANTE: Use 'onboarding@resend.dev' até configurar seu domínio próprio no Resend
         from: "Public Domain Fanzine <onboarding@resend.dev>", 
         // IMPORTANTE: No modo gratuito/sandbox, este email DEVE ser o mesmo do cadastro do Resend
-        to: ["misterquadrinho@gmail.com"], 
+        to: ["cristiano.rohling@gmail.com"], 
         subject: `Novo Pedido de ${data.name}`,
         html: emailHtml,
         reply_to: data.email as string
