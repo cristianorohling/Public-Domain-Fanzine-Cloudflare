@@ -4,6 +4,7 @@
   "description": "Website oficial do Public Domain Fanzine hospedado no Cloudflare Pages.",
   "scripts": {
     "start": "npx serve .",
+    "build": "echo 'No build step required for this static project.'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
