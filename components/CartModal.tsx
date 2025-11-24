@@ -1,5 +1,4 @@
-
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCart } from '../contexts/CartContext';
 
 interface CartModalProps {
@@ -7,7 +6,6 @@ interface CartModalProps {
   onClose: () => void;
 }
 
-const WHATSAPP_NUMBER_DISPLAY = "(81) 99427-6674";
 const WHATSAPP_NUMBER_LINK = "5581994276674";
 const PIX_QR_CODE_URL = "http://publicdomainfanzine.puter.site/img/qr_code_pix.jpg";
 

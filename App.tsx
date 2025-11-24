@@ -22,8 +22,11 @@ const App: React.FC = () => {
     contact: useRef<HTMLDivElement>(null),
   };
 
-  const scrollToSection = (section: keyof typeof sections) => {
-    sections[section].current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (section: string) => {
+    const targetRef = sections[section as keyof typeof sections];
+    if (targetRef && targetRef.current) {
+        targetRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (

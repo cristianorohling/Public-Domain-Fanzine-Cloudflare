@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { getTracks } from '../services/contentService';
-import type { Track } from '../types';
 
 const PlayIcon: React.FC<{ className?: string }> = ({ className = "w-6 h-6" }) => (
     <svg className={className} fill="currentColor" viewBox="0 0 20 20"><path d="M4.018 14.385V5.615a.6.6 0 0 1 .882-.52l8.03 4.385a.6.6 0 0 1 0 1.04l-8.03 4.385a.6.6 0 0 1-.882-.52z"></path></svg>
