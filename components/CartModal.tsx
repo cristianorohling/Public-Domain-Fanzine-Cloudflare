@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { useCart } from '../contexts/CartContext';
 
@@ -197,7 +198,6 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
 
         const orderSummary = `--- ITENS DO PEDIDO ---\n${cartItems.map(item => `${item.quantity}x - ${item.title} (#${item.issue}) - R$ ${(item.price * item.quantity).toFixed(2)}`).join('\n')}\n\n--- VALORES ---\nSubtotal: R$ ${subtotal.toFixed(2)}\nFrete: R$ ${shippingCost.toFixed(2)}\nTOTAL: R$ ${total.toFixed(2)}`;
         
-        // Removed 'form-name' as it is Netlify specific.
         const payload = {
           pedido: orderSummary,
           ...formState,
@@ -210,18 +210,32 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
         };
         
         try {
-            // Updated endpoint for Cloudflare Functions
             const response = await fetch("/api/submit-order", {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: encode(payload)
             });
-            if (!response.ok) throw new Error(`O envio falhou com o status: ${response.status}`);
+
+            // Tenta fazer o parse do JSON da resposta
+            let data;
+            try {
+                data = await response.json();
+            } catch (e) {
+                data = null;
+            }
+
+            if (!response.ok) {
+                // Usa a mensagem de erro que vem da API se existir
+                const errorMsg = data && data.error ? data.error : `Erro HTTP: ${response.status}`;
+                throw new Error(errorMsg);
+            }
+
             setStep('success');
             clearCart();
         } catch (error) {
             console.error("Form submission error:", error);
-            setSubmissionError('Ocorreu um erro ao enviar o pedido. Por favor, tente novamente ou entre em contato conosco diretamente.');
+            // Exibe o erro real para o usuário
+            setSubmissionError(error instanceof Error ? error.message : 'Erro desconhecido ao enviar pedido.');
         } finally {
             setIsSubmitting(false);
         }
@@ -343,7 +357,7 @@ const CartModal: React.FC<CartModalProps> = ({ isOpen, onClose }) => {
                     <button onClick={() => setStep('cart')} className="text-brand-secondary hover:underline">Editar Pedido</button>
                     <button onClick={() => setStep('details')} className="text-brand-secondary hover:underline">Editar Endereço</button>
                  </div>
-                 {submissionError && (<p className="my-4 text-center text-red-500">{submissionError}</p>)}
+                 {submissionError && (<p className="my-4 text-center text-red-500 font-bold bg-red-900/20 p-2 rounded">{submissionError}</p>)}
                 <button onClick={handlePlaceOrder} disabled={isSubmitting} className="w-full bg-brand-secondary text-dark-bg font-bold py-3 px-6 rounded-md text-base sm:text-lg uppercase tracking-wider transition-all duration-300 hover:bg-opacity-80 disabled:opacity-50 disabled:cursor-wait">{isSubmitting ? 'Enviando...' : 'Efetivar Pedido'}</button>
             </div>
         </div>
