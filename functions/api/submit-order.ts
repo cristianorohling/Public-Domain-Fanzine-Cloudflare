@@ -16,10 +16,18 @@ type PagesFunction<T = any> = (context: {
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
+    // Tenta pegar a chave das Variáveis de Ambiente do Painel.
+    // Se não encontrar (devido ao bloqueio do painel), usa a chave HARDCODED fornecida.
+    let apiKey = context.env.RESEND_API_KEY ? context.env.RESEND_API_KEY.trim() : "";
+
+    if (!apiKey) {
+        apiKey = "re_CG6zBwwa_9JTEorfcC6abmXyDcGedmCoW";
+    }
+
     // 1. Verificar se a chave existe antes de qualquer coisa
-    if (!context.env.RESEND_API_KEY) {
+    if (!apiKey) {
       return new Response(JSON.stringify({ 
-        error: "CONFIGURAÇÃO PENDENTE: A variável RESEND_API_KEY não foi encontrada no Cloudflare Pages. Adicione-a em Settings > Environment Variables." 
+        error: "CONFIGURAÇÃO PENDENTE: A API Key do Resend não foi encontrada." 
       }), {
         status: 500,
         headers: { "Content-Type": "application/json" }
@@ -60,7 +68,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${context.env.RESEND_API_KEY}`,
+        "Authorization": `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
