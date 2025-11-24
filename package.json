@@ -1,0 +1,17 @@
+{
+  "name": "public-domain-fanzine-cloudflare",
+  "version": "1.0.0",
+  "description": "Website oficial do Public Domain Fanzine hospedado no Cloudflare Pages.",
+  "scripts": {
+    "start": "npx serve .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "cloudflare-pages",
+    "fanzine",
+    "public-domain"
+  ],
+  "author": "Public Domain Fanzine Team",
+  "license": "MIT"
+}
