@@ -1,3 +1,4 @@
+
 // FIX: Added BlogPost to import to resolve missing member error.
 import type { Edition, TeamMember, Wallpaper, BlogPost, Track } from '../types';
 import { EDITION_PRICES } from '../config/settings';
@@ -96,9 +97,8 @@ export const getEditions = (): Edition[] => [
     issue: 6,
     title: "Stardust the Super Wizard",
     date: "Outono 2024",
-    status: "coming-soon",
     excerpt: "Criado pelo excêntrico Fletcher Hanks, Stardust the Super Wizard é um dos personagens mais estranhos e fascinantes da Era de Ouro.",
-    description: `Criado pelo excêntrico Fletcher Hanks e publicado pela Fox Feature Syndicate em Fantastic Comics #1 (1939), Stardust the Super Wizard é um dos personagens mais estranhos e fascinantes da Era de Ouro. Um ser cósmico que observa a Terra e pune criminosos com raios científicos e castigos surreais, Stardust é o retrato de um herói distorcido — um deus vingador da imaginação de Hanks. Uma obra-prima bizarra e visionária, agora resgatada na coleção Public Domain Fanzine.\n\nFormato: Americano (18 x 26 cm)`,
+    description: `Criado pelo excêntrico Fletcher Hanks e publicado pela Fox Feature Syndicate em Fantastic Comics #1 (1939), Stardust the Super Wizard é um dos personagens mais estranhos e fascinantes da Era de Ouro. Um ser cósmico que observa a Terra e pune criminosos com raios científicos e castigos surreais, Stardust é o retrato de um herói distorcido — um deus vingador da imaginação de Hanks. Uma obra-prima bizarra e visionária, agora resgatada na coleção Public Domain Fanzine.\n\nFormato: Americano (18 x 26 cm)\nPáginas: 32 • Colorido`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/ed_06.png",
     price: EDITION_PRICES[6],
     characterInfo: [

@@ -1,3 +1,4 @@
+
 // config/settings.ts
 
 /**
@@ -17,7 +18,7 @@ export const EDITION_PRICES: Record<number, number> = {
   3: 22.00, // Bob Phantom
   4: 24.00, // Mysta of the Moon
   5: 25.00, // Daredevil, Master of Courage
-  6: 24.00, // Stardust the Super Wizard
+  6: 25.00, // Stardust the Super Wizard
   7: 24.00, // Chocantes Histórias #01
 };
 
