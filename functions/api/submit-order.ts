@@ -1,10 +1,9 @@
 
 interface Env {
-  // Adicione suas variáveis de ambiente aqui (ex: chaves de API de email)
-  // RESEND_API_KEY: string;
+  RESEND_API_KEY: string;
 }
 
-// FIX: Locally define PagesFunction as it is missing from the global scope in this environment.
+// Definição local de PagesFunction caso não esteja disponível no escopo global
 type PagesFunction<T = any> = (context: {
   request: Request;
   env: T;
@@ -17,30 +16,76 @@ type PagesFunction<T = any> = (context: {
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
-    // A Cloudflare pode processar FormData ou JSON. 
-    // O frontend envia x-www-form-urlencoded, que o context.request.formData() processa automaticamente.
     const formData = await context.request.formData();
     const data = Object.fromEntries(formData);
-
-    // LOGICA DE BACKEND:
-    // Na Cloudflare, os dados não são salvos automaticamente como no Netlify.
-    // Aqui você deve integrar com um serviço de e-mail (Resend, SendGrid, MailChannels)
-    // ou salvar em um banco de dados (Cloudflare D1, Supabase, etc).
     
-    console.log("Novo Pedido Recebido (Logs Cloudflare):", data);
+    // Validação básica da chave de API
+    if (!context.env.RESEND_API_KEY) {
+      console.error("ERRO: RESEND_API_KEY não configurada nas variáveis de ambiente do Cloudflare.");
+      throw new Error("Configuração de servidor incompleta.");
+    }
 
-    // Simulação de sucesso para o Frontend
+    // Montar o corpo do HTML do e-mail
+    const emailHtml = `
+      <div style="font-family: sans-serif; color: #333;">
+        <h1>Novo Pedido Recebido!</h1>
+        <p><strong>Cliente:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>WhatsApp:</strong> ${data.whatsapp}</p>
+        
+        <hr />
+        
+        <h3>Endereço de Entrega:</h3>
+        <p>
+          ${data.address}, ${data.number} ${data.complement ? '- ' + data.complement : ''}<br />
+          ${data.neighborhood} - ${data.city} / ${data.state}<br />
+          CEP: ${data.zip}
+        </p>
+
+        <hr />
+
+        <h3>Resumo do Pedido:</h3>
+        <pre style="background: #f4f4f4; padding: 15px; border-radius: 5px; font-family: monospace;">${data.pedido}</pre>
+        
+        <br />
+        <p><em>Este e-mail foi enviado automaticamente pelo sistema do Public Domain Fanzine.</em></p>
+      </div>
+    `;
+
+    // Chamada para a API do Resend
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${context.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // IMPORTANTE: Enquanto não verificar seu domínio no Resend, use 'onboarding@resend.dev'
+        from: "Public Domain Fanzine <onboarding@resend.dev>", 
+        // Para testes, o 'to' deve ser o mesmo email que você usou para criar a conta no Resend
+        // Depois de verificar o domínio, pode ser qualquer email.
+        to: ["misterquadrinho@gmail.com"], 
+        subject: `Novo Pedido de ${data.name}`,
+        html: emailHtml,
+        reply_to: data.email as string
+      }),
+    });
+
+    if (!resendResponse.ok) {
+      const errorText = await resendResponse.text();
+      console.error("Erro ao enviar email via Resend:", errorText);
+      throw new Error("Falha no envio do e-mail.");
+    }
+
     return new Response(JSON.stringify({ 
-      message: "Pedido recebido com sucesso!",
-      details: "Em produção real, configure um serviço de email neste arquivo."
+      message: "Pedido recebido e e-mail enviado com sucesso!",
     }), {
       status: 200,
-      headers: {
-        "Content-Type": "application/json"
-      }
+      headers: { "Content-Type": "application/json" }
     });
 
   } catch (err) {
+    console.error(err);
     return new Response(JSON.stringify({ error: "Erro ao processar o pedido" }), {
       status: 500,
       headers: { "Content-Type": "application/json" }
