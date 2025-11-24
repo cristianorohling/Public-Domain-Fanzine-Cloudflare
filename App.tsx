@@ -23,9 +23,12 @@ const App: React.FC = () => {
   };
 
   const scrollToSection = (section: string) => {
-    const targetRef = sections[section as keyof typeof sections];
-    if (targetRef && targetRef.current) {
-        targetRef.current.scrollIntoView({ behavior: 'smooth' });
+    // Check if the section string matches one of our known keys
+    if (section in sections) {
+        const targetRef = sections[section as keyof typeof sections];
+        if (targetRef && targetRef.current) {
+            targetRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
     }
   };
 
