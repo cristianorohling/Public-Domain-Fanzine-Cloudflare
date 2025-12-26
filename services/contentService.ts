@@ -104,20 +104,27 @@ export const getEditions = (): Edition[] => [
     characterInfo: [
       {
         name: "Stardust the Super Wizard",
-        description: "Criado pelo enigmático Fletcher Hanks e publicado em Fantastic Comics #01 (1939). Stardust é um ser de poder quase ilimitado que viaja pelo espaço combatendo o mal de formas surreais e muitas vezes aterrorizantes. Um verdadeiro ícone do bizarro na Era de Ouro.",
+        description: "Criado pelo enigmático Fletcher Hanks e publicado em Fantastic Comics #01 (1939). Stardust é um ser de poder quase ilimitado que viaja pelo space combatendo o mal de formas surreais e muitas vezes aterrorizantes. Um verdadeiro ícone do bizarro na Era de Ouro.",
         imageUrl: "https://picsum.photos/seed/stardust/400/400"
       }
     ]
   },
   {
-    issue: 7,
+    issue: 101,
     title: "Chocantes Histórias #01",
     date: "Inverno 2025",
-    status: "coming-soon",
-    excerpt: "A nova revista CHOCANTES HISTÓRIAS chega para resgatar o melhor do terror, crime e ficção científica da Era de Ouro dos quadrinhos!",
-    description: `A nova revista CHOCANTES HISTÓRIAS chega para resgatar o melhor do terror, crime e ficção científica da Era de Ouro dos quadrinhos! Uma seleção eletrizante de contos visuais que marcaram época, assinados por mestres como Jack Kirby, Joe Kubert, Gene Colan, Steve Ditko, Frank Frazetta e George Roussos (Cellardo) — artistas que definiram o imaginário fantástico das revistas pulp e dos comics clássicos.\n\nChocantes Histórias é uma publicação do selo Public Domain Fanzine, dedicada à preservação, tradução e restauração de obras em domínio público. Cada página é um mergulho na imaginação vibrante dos anos 40 e 50 — uma era em que o medo, a moral e o fantástico se misturavam para criar experiências verdadeiramente únicas.`,
+    excerpt: "Uma antologia de histórias “chocantes” com HQs em Domínio Público do período da Golden Age Americana.",
+    description: `CHOCANTES HISTÓRIAS #01 é uma antologia de histórias “chocantes” com HQs em Domínio Público (PD) do período da Golden Age Americana. A revista é um mix de vários gêneros e estilos publicados entre os anos 30 a 50.
+
+Nesta edição, compilamos alguns trabalhos de artistas que, posteriormente, se tornariam Mestres e amplamente venerados globalmente por suas características estilísticas, a saber: Gene Colan, Dan Barry, Frank Giacoia, Joe Kubert, Bernie Krigstein, George Tuska, Murphy Anderson, Jon Small, Steve Ditko, Bob Powell e Mike Sekowsky.
+
+Esta versão de CHOCANTES HISTÓRIAS #01 contém 11 histórias em quadrinhos traduzidas, revisadas e legendadas por Cris Rohling, respeitando rigorosamente os detalhes mais autênticos para a preservação da originalidade da obra, incluindo as fontes e as expressões idiomáticas de diversas épocas. Todas as histórias em quadrinhos são comprovadamente oriundas de fontes/scans que cumprem as leis que regulam as questões de DP para uso livre.
+
+Formato: Americano (18 x 26 cm)
+Páginas: 80 • Colorido`,
     coverImageUrl: "https://publicdomainfanzine.puter.site/img/Ed_chocantes_01.jpg",
-    price: EDITION_PRICES[7],
+    price: EDITION_PRICES[101],
+    youtubeVideoId: 'Fab9dm_iw7Y',
     characterInfo: [
       {
         name: "Mestres do Terror",

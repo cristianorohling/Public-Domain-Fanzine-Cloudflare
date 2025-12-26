@@ -12,6 +12,7 @@ const YouTubeIcon: React.FC<{className?: string}> = ({ className }) => (
 
 const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edition, onSelect }) => {
   const isComingSoon = edition.status === 'coming-soon';
+  const isIndependent = edition.issue >= 100;
 
   return (
     <div className="relative overflow-hidden rounded-lg">
@@ -40,7 +41,7 @@ const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edi
           )}
         </div>
         <div className="p-6">
-          <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>
+          {!isIndependent && <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>}
           <h3 className="text-2xl font-bold mt-2 mb-3 text-light-text">{edition.title}</h3>
           <p className="text-medium-text">{edition.excerpt}</p>
           {!isComingSoon && (
@@ -61,8 +62,8 @@ const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edi
 
 const Editions: React.FC = () => {
   const allEditions = getEditions();
-  const mainSeriesEditions = allEditions.filter(e => e.title !== "Chocantes Histórias #01");
-  const specialEditions = allEditions.filter(e => e.title === "Chocantes Histórias #01");
+  const mainSeriesEditions = allEditions.filter(e => e.issue < 100);
+  const specialEditions = allEditions.filter(e => e.issue >= 100);
   
   const [selectedEdition, setSelectedEdition] = useState<Edition | null>(null);
 

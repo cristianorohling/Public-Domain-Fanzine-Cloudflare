@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import type { Edition } from '../types';
 import { useCart } from '../contexts/CartContext';
@@ -48,6 +49,8 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
     setQuantity(prev => Math.max(1, Math.min(10, prev + delta)));
   }
 
+  const isIndependent = edition.issue >= 100;
+
   return (
     <div
       className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 transition-opacity duration-300"
@@ -78,7 +81,7 @@ const EditionModal: React.FC<EditionModalProps> = ({ edition, onClose }) => {
               />
             </div>
             <div className="md:col-span-2">
-              <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>
+              {!isIndependent && <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>}
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4 text-light-text">{edition.title}</h2>
               
               {edition.status !== 'coming-soon' && (

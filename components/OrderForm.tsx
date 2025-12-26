@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { getEditions } from '../services/contentService';
 import { SHIPPING_BASE_COST } from '../config/settings';
@@ -45,10 +46,15 @@ const OrderForm: React.FC = () => {
           <div className="space-y-6">
             {editions.map(edition => {
               const isComingSoon = edition.status === 'coming-soon';
+              const isIndependent = edition.issue >= 100;
+              const displayTitle = isIndependent 
+                ? edition.title.toUpperCase()
+                : `${edition.title.toUpperCase()} - #${String(edition.issue).padStart(2, '0')}`;
+
               return (
                 <div key={edition.issue} className={`flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-gray-800 pb-4 last:border-b-0 last:pb-0 ${isComingSoon ? 'opacity-50' : ''}`}>
                   <div className="flex-grow text-center sm:text-left">
-                    <h3 className="font-bold text-light-text">{edition.title.toUpperCase()} - #{String(edition.issue).padStart(2, '0')}</h3>
+                    <h3 className="font-bold text-light-text">{displayTitle}</h3>
                     <p className="text-brand-secondary font-mono">
                       {isComingSoon ? 'Em Breve!' : `R$ ${edition.price.toFixed(2)}`}
                     </p>

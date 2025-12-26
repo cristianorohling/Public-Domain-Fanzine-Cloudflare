@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { getEditions } from '../services/contentService';
 import type { Edition } from '../types';
@@ -13,6 +14,7 @@ const VideoCard: React.FC<{ edition: Edition }> = ({ edition }) => {
 
   const thumbnailUrl = `https://img.youtube.com/vi/${edition.youtubeVideoId}/hqdefault.jpg`;
   const videoUrl = `https://www.youtube.com/shorts/${edition.youtubeVideoId}`;
+  const isIndependent = edition.issue >= 100;
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -32,7 +34,7 @@ const VideoCard: React.FC<{ edition: Edition }> = ({ edition }) => {
         </div>
       </a>
       <h3 className="font-bold text-center text-light-text mt-2">{edition.title}</h3>
-      <p className="text-sm font-mono text-brand-secondary">Edição #{edition.issue}</p>
+      {!isIndependent && <p className="text-sm font-mono text-brand-secondary">Edição #{edition.issue}</p>}
     </div>
   );
 };
