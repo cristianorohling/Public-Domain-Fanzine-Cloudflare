@@ -15,10 +15,10 @@ const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edi
   const isIndependent = edition.issue >= 100;
 
   return (
-    <div className="relative overflow-hidden rounded-lg">
+    <div className="relative overflow-hidden rounded-lg h-full">
       <button 
         onClick={onSelect}
-        className={`group bg-[#1a1a1a] rounded-lg overflow-hidden transform transition-transform duration-300 ease-in-out text-left w-full focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg hover:-translate-y-2 ${isComingSoon ? 'opacity-70' : ''}`}
+        className={`group bg-[#1a1a1a] rounded-lg overflow-hidden transform transition-all duration-300 ease-in-out text-left w-full h-full focus:outline-none focus:ring-2 focus:ring-brand-primary ring-offset-2 ring-offset-dark-bg hover:-translate-y-2 flex flex-col ${isComingSoon ? 'opacity-70' : ''}`}
       >
         <div className="p-4 pb-0 relative">
           <img 
@@ -40,19 +40,21 @@ const EditionCard: React.FC<{ edition: Edition, onSelect: () => void }> = ({ edi
             </a>
           )}
         </div>
-        <div className="p-6">
-          {!isIndependent && <p className="text-sm text-brand-secondary font-mono">Edição #{edition.issue}</p>}
-          <h3 className="text-2xl font-bold mt-2 mb-3 text-light-text">{edition.title}</h3>
-          <p className="text-medium-text">{edition.excerpt}</p>
-          {!isComingSoon && (
-            <p className="mt-4 text-xl font-bold text-brand-primary font-mono">
-              R$ {edition.price.toFixed(2).replace('.', ',')}
-            </p>
-          )}
+        <div className="p-6 flex-grow flex flex-col">
+          {!isIndependent && <p className="text-xs text-brand-secondary font-mono">Edição #{edition.issue}</p>}
+          <h3 className="text-xl font-bold mt-2 mb-3 text-light-text leading-tight">{edition.title}</h3>
+          <p className="text-sm text-medium-text line-clamp-3 mb-4">{edition.excerpt}</p>
+          <div className="mt-auto">
+            {!isComingSoon && (
+              <p className="text-lg font-bold text-brand-primary font-mono">
+                R$ {edition.price.toFixed(2).replace('.', ',')}
+              </p>
+            )}
+          </div>
         </div>
       </button>
       {isComingSoon && (
-        <div className="absolute top-4 -left-8 text-xs px-8 py-1 sm:top-8 sm:-left-10 sm:text-sm sm:px-12 transform -rotate-45 bg-yellow-400 text-black font-bold uppercase tracking-wider text-center shadow-lg select-none pointer-events-none z-10">
+        <div className="absolute top-4 -left-8 text-[10px] px-8 py-1 sm:top-8 sm:-left-10 sm:text-xs sm:px-12 transform -rotate-45 bg-yellow-400 text-black font-bold uppercase tracking-wider text-center shadow-lg select-none pointer-events-none z-10">
           Em Breve!
         </div>
       )}
@@ -75,9 +77,13 @@ const Editions: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tighter">Edições</h2>
             <p className="mt-4 text-base sm:text-lg text-medium-text max-w-2xl mx-auto">Navegue pelo nosso arquivo de zines.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          
+          {/* Main Series - Centered Flexbox */}
+          <div className="flex flex-wrap justify-center -m-4">
             {mainSeriesEditions.map((edition) => (
-              <EditionCard key={edition.issue} edition={edition} onSelect={() => setSelectedEdition(edition)} />
+              <div key={edition.issue} className="p-4 w-full sm:w-1/2 md:w-1/3 xl:w-1/4 max-w-sm sm:max-w-none">
+                <EditionCard edition={edition} onSelect={() => setSelectedEdition(edition)} />
+              </div>
             ))}
           </div>
 
@@ -89,9 +95,13 @@ const Editions: React.FC = () => {
                     Explore nossas coleções temáticas! <span className="text-light-text font-bold">Chocantes Histórias</span> é a nossa primeira série dedicada ao melhor do horror, crime e ficção científica da Era de Ouro. Fique de olho para futuros lançamentos de romance, western e mais.
                  </p>
               </div>
-              <div className="max-w-md mx-auto">
+              
+              {/* Special Editions - Centered Flexbox */}
+              <div className="flex flex-wrap justify-center -m-4">
                 {specialEditions.map(edition => (
-                  <EditionCard key={edition.issue} edition={edition} onSelect={() => setSelectedEdition(edition)} />
+                  <div key={edition.issue} className="p-4 w-full sm:w-1/2 md:w-1/3 xl:w-1/4 max-w-sm sm:max-w-none">
+                    <EditionCard edition={edition} onSelect={() => setSelectedEdition(edition)} />
+                  </div>
                 ))}
               </div>
             </div>

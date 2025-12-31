@@ -21,7 +21,7 @@ export const EDITION_PRICES: Record<number, number> = {
   4: 24.00, // Mysta of the Moon
   5: 25.00, // Daredevil, Master of Courage
   6: 25.00, // Stardust the Super Wizard
-  101: 35.00, // Chocantes Histórias #01 (Independente)
+  101: 28.00, // Chocantes Histórias #01 (Independente)
 };
 
 /**
