@@ -24,7 +24,7 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           className="w-full max-w-[260px] md:max-w-[400px] mx-auto mb-4 md:mb-6" 
         />
         <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base text-medium-text mb-6 md:mb-8 leading-relaxed">
-          PUBLIC DOMAIN Fanzine é uma série que resgata joias esquecidas da Era de Ouro dos quadrinhos. Focada em comics norte-americanos em domínio público, a coleção une pesquisa e restauração histórica.
+          <strong className="text-light-text">Public Domain Fanzine</strong> é uma série que resgata joias esquecidas da Era de Ouro dos quadrinhos. Focada em comics norte-americanos em domínio público, a coleção une pesquisa e restauração histórica.
         </p>
         <button
           onClick={onNavigate}
