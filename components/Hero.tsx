@@ -7,8 +7,8 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
-    <section className="min-h-[70vh] md:min-h-[85vh] flex items-center justify-center text-center bg-transparent relative overflow-hidden py-10 md:py-0">
-      {/* FIX: Replaced non-standard <style jsx> with React inline styles for compatibility. */}
+    <section className="min-h-[60vh] md:min-h-[75vh] flex items-center justify-center text-center bg-transparent relative overflow-hidden py-8 md:py-12">
+      {/* Background Grid */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -21,17 +21,17 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         <img 
           src="https://publicdomainfanzine.puter.site/img/logo.png" 
           alt="Public Domain Fanzine Logo" 
-          className="w-full max-w-[320px] md:max-w-[500px] mx-auto mb-6" 
+          className="w-full max-w-[260px] md:max-w-[400px] mx-auto mb-4 md:mb-6" 
         />
-        <p className="max-w-3xl mx-auto text-sm sm:text-base md:text-lg text-medium-text mb-6">
-          PUBLIC DOMAIN Fanzine é uma série em formato de fanzine que resgata joias esquecidas da Era de Ouro dos quadrinhos. Focada em comics norte-americanos em domínio público, a coleção une pesquisa, preservação e paixão pela história dos heróis e vilões que moldaram a cultura pop.
+        <p className="max-w-2xl mx-auto text-xs sm:text-sm md:text-base text-medium-text mb-6 md:mb-8 leading-relaxed">
+          PUBLIC DOMAIN Fanzine é uma série que resgata joias esquecidas da Era de Ouro dos quadrinhos. Focada em comics norte-americanos em domínio público, a coleção une pesquisa e restauração histórica.
         </p>
         <button
           onClick={onNavigate}
-          className="group relative inline-block px-8 py-3 text-lg font-bold text-light-text uppercase tracking-widest overflow-hidden border-2 border-brand-secondary"
+          className="group relative inline-block px-8 py-3 text-base md:text-lg font-bold text-light-text uppercase tracking-widest overflow-hidden border-2 border-brand-secondary"
         >
           <span className="absolute inset-0 bg-brand-secondary transform -translate-x-full transition-transform duration-300 ease-in-out group-hover:translate-x-0"></span>
-          <span className="relative">Veja as Edições</span>
+          <span className="relative transition-colors duration-300 group-hover:text-dark-bg">Veja as Edições</span>
         </button>
       </div>
     </section>
